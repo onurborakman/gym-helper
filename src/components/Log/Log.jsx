@@ -1,31 +1,83 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Log.module.scss'
-import parseGymLog from 'parse-gym-log'
-import { Typography } from '@mui/material'
+import { Switch, Typography } from '@mui/material'
 import { useContextData } from '@/app/context'
 
-const Log = () => {
-    const { setLog } = useContextData()
-    const handleChange = ({ target: { value } }) => {
-        try {
-            const log = parseGymLog(value)
-            setLog(log)
-        } catch (e) {
-            console.log('ERROR')
-        }
-    }
+const insert = (array, index, newItem) => {
+    const newArray = array.filter(item => item !== newItem)
+    return [...newArray.slice(0, index), newItem, ...newArray.slice(index)]
+}
 
+const Log = () => {
+    const { setLog, setStep, setIsStrength } = useContextData()
+    const [currentLog, setCurrentLog] = useState([])
+    
+    useEffect(() => {
+        console.log('testtest', currentLog)
+        setLog(currentLog)
+    }, [currentLog])
+
+    const handleChange = (e, log, logIndex, setIndex) => {
+        const key = e.target.name
+        const value = e.target.value
+        const newSet = {
+            ...log.sets[setIndex],
+            [key]: value
+        }
+        log.sets[setIndex] = newSet
+        const newCurrentLog = insert(currentLog, logIndex, log)
+        setCurrentLog(newCurrentLog)
+    }
     return (
-        <div>
-            <Typography>Please enter your latest workout log for the suggested muscle groups below</Typography>
-            <textarea 
-                className={styles.log}
-                onChange={handleChange}
-                type="text"
-                placeholder={'20.04.2018\n==========\n\n# squat\n\n5 x 100kg\n5 x 100kg\n\n# overhead press\n\n5 x 50kg\n5 x 50kg\n5 x 50kg\n\n# bench press\n\n3 x 5 x 100kg'}
-                defaultValue={'20.04.2018\n==========\n\n# squat\n\n5 x 100kg\n5 x 100kg\n\n# overhead press\n\n5 x 50kg\n5 x 50kg\n5 x 50kg\n\n# bench press\n\n3 x 5 x 100kg'}
-            />
+        <div className={styles.log}>
+            <Typography sx={{
+                    fontSize: {
+                        lg: '1rem',
+                        md: '1rem',
+                        sm: '1rem',
+                        xs: '0.8rem',
+                    },
+                    fontFamily: 'Copperplate'
+                }}>Please enter your workout below</Typography>
+            <Switch sx={{ fill: 'white' }} onChange={(e) => setIsStrength(e.target.checked)}/> 
+            <Typography variant="caption" sx={{
+                    fontSize: {
+                        lg: '0.75rem',
+                        md: '0.75rem',
+                        sm: '0.75rem',
+                        xs: '0.5rem',
+                    },
+                    fontFamily: 'Copperplate',
+                    mb: 3
+                }}>{'←'} Turn this on to focus on strength</Typography>
+            <div className={styles.list}>
+                {currentLog.map((log, logIndex) => (
+                    <div className={styles.exerciseLogWrapper}>
+                        <input placeholder='Exercise Name' onChange={(e) => {
+                            log.name = e.target.value
+                            const newCurrentLog = insert(currentLog, logIndex, log)
+                            setCurrentLog(newCurrentLog)
+                        }}/>
+                        {log.sets.map((_, setIndex) => (
+                            <div className={styles.exerciseLog}>
+                                <input name='reps' placeholder='Repetitions' onChange={(e) => handleChange(e, log, logIndex, setIndex)} type='number'/>
+                                X<input name='weight' placeholder='Weight' type='number' onChange={(e) => handleChange(e, log, logIndex, setIndex)}/>KG/LBS
+                                </div>
+                        ))}
+                        <button onClick={() => {
+                            log.sets.push({
+                                reps: 0,
+                                weight: 0
+                            })
+                            const newCurrentLog = insert(currentLog, logIndex, log)
+                            setCurrentLog(newCurrentLog)
+                        }}>Add Set</button>
+                    </div>
+                ))}
+                <button onClick={() => setCurrentLog([...currentLog, {name: '', sets: [{reps: 0, weight: 0}]}])}>Add Exercise</button>
+            </div>
+            <button onClick={() => setStep(4)}>Get Revised Workout</button>
         </div>
     )
 }

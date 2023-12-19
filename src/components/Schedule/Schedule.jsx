@@ -1,16 +1,11 @@
 "use client"
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import ListSubheader from '@mui/material/ListSubheader';
+import { Typography, Checkbox, ListItemText, ListItemIcon, ListItemButton, ListItem, List } from '@mui/material';
 import { useContextData } from '@/app/context';
+import { CheckBoxRounded } from '@mui/icons-material';
 
 const Schedule = () => {
-  const { setSchedule, Workouts, schedule } = useContextData()
+  const { setSchedule, Workouts, schedule, setStep } = useContextData()
   const [checked, setChecked] = React.useState(schedule || [])
 
   const handleToggle = (value) => () => {
@@ -28,46 +23,59 @@ const Schedule = () => {
   };
 
   return (
-    <List 
-        sx={{ width: '100%', maxWidth: 360, border: '1px solid white' }}
-        subheader={
-            <ListSubheader
-                sx={{
-                    bgcolor: 'transparent', 
-                    borderBottom: '1px solid white', 
-                    color: 'white'
-                }}
-            >What have you worked out past 7 days?
-            </ListSubheader>
-        }
-    >
-      {Workouts.map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
+    <div style={{ textAlign: 'center' }}>
+      <Typography sx={{
+                    fontSize: {
+                        lg: '1rem',
+                        md: '1rem',
+                        sm: '1rem',
+                        xs: '0.8rem',
+                    },
+                    fontFamily: 'Copperplate'
+                }}>Which Workouts Have You Completed in the Last 7 days?</Typography>
+      <Typography variant="caption" sx={{
+                    fontSize: {
+                        lg: '0.75rem',
+                        md: '0.75rem',
+                        sm: '0.75rem',
+                        xs: '0.5rem',
+                    },
+                    fontFamily: 'Copperplate',
+                    mb: 3
+                }}>Please check all that apply</Typography>
+      <List 
+          sx={{ width: '100%', maxWidth: 360 }}
+      >
+        {Workouts.map((value) => {
+          const labelId = `checkbox-list-label-${value}`;
 
-        return (
-          <ListItem
-            key={value}
-            disablePadding
-          >
-            <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
-              <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{ 'aria-labelledby': labelId }}
-                  sx={{
-                    color: 'white'
-                  }}
-                />
-              </ListItemIcon>
-              <ListItemText id={labelId} primary={value} />
-            </ListItemButton>
-          </ListItem>
-        );
-      })}
-    </List>
+          return (
+            <ListItem
+              key={value}
+              disablePadding
+            >
+              <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    checked={checked.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ 'aria-labelledby': labelId }}
+                    sx={{
+                      color: 'white'
+                    }}
+                    checkedIcon={<CheckBoxRounded sx={{color: 'white'}}/>}
+                  />
+                </ListItemIcon>
+                <ListItemText id={labelId} primary={value} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
+      <button onClick={() => setStep(2)}>Get Results</button>
+    </div>
   );
 }
 

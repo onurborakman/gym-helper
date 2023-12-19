@@ -4,12 +4,51 @@ import { useContextData } from '@/app/context'
 import { Typography } from '@mui/material'
 
 const BodyParts = {
-    Core: 'stomach',
-    Shoulders: 'shoulder',
-    Chest: 'chest',
-    Arms: 'arm',
-    Legs: 'leg',
-    Back: 'stomach'
+    Core: [
+        'obliques',
+        'abs'
+    ],
+    Shoulders: [
+        'back-deltoids',
+        'front-deltoids'
+    ],
+    Chest: [
+        'chest'
+    ],
+    Arms: [
+        'biceps',
+        'triceps',
+        'forearm'
+    ],
+    Legs: [
+        'abductors',
+        'gluteal',
+        'adductor',
+        'quadriceps',
+        'hamstring',
+        'knees',
+        'calves',
+        'left-soleus',
+        'right-soleus'
+    ],
+    Back: [
+        'trapezius',
+        'upper-back',
+        'lower-back'
+    ]
+}
+
+const getNotSoreWorkoutsList = soreness => {
+    const soreWorkouts = []
+    const bodyParts = Object.keys(BodyParts)
+    soreness?.forEach(soreMuscle => {
+        bodyParts.forEach(bodyPart => {
+            if(BodyParts[bodyPart].includes(soreMuscle)){
+                soreWorkouts.push(bodyPart)
+            }
+        })
+    })
+    return bodyParts.filter(bodyPart => !soreWorkouts.includes(bodyPart))
 }
 
 const Workout = () => {
@@ -19,25 +58,36 @@ const Workout = () => {
         Workouts
     } = useContextData()
     const whatToWorkout = Workouts.filter(workout => !schedule?.includes(workout))
-    const soreBodyParts = Object.keys(soreness || {})
-        ?.filter((bodyPart) => soreness[bodyPart].selected)
-    const soreWorkouts = Object.values(BodyParts)
-        .filter(bodyPart => soreBodyParts.some(soreBodyPart => soreBodyPart.toLowerCase().includes(bodyPart)))
-    const soreWorkoutNames = Object.keys(BodyParts)
-        .filter(bodyPart => soreWorkouts.some(workout => workout.includes(BodyParts[bodyPart])))
-    const whatCanBeWorkedOut = Object.keys(BodyParts).filter(bodyPart => !soreWorkoutNames.includes(bodyPart))
-
-    if(whatToWorkout.length === 0 || whatCanBeWorkedOut.length === 0){
+    const notSoreWorkouts = getNotSoreWorkoutsList(soreness)
+    if(whatToWorkout.length === 0 || notSoreWorkouts.length === 0){
         return (<>
             Take a rest day, champion.
         </>)
     }
-    const allWorkouts = [...whatToWorkout, ...whatCanBeWorkedOut]
+    const allWorkouts = [...whatToWorkout, ...notSoreWorkouts]
     const todaysWorkout = allWorkouts.filter((item, index) => allWorkouts.indexOf(item) !== index)
     return (
-        <div>
-            <Typography>It is suggested that today you should workout these muscles:</Typography>
-            <ul>
+        <div style={{ textAlign: 'center' }}>
+            <Typography sx={{
+                    fontSize: {
+                        lg: '1rem',
+                        md: '1rem',
+                        sm: '1rem',
+                        xs: '0.8rem',
+                    },
+                    fontFamily: 'Copperplate'
+                }}>Results</Typography>
+            <Typography variant='caption' sx={{
+                    fontSize: {
+                        lg: '0.75rem',
+                        md: '0.75rem',
+                        sm: '0.75rem',
+                        xs: '0.5rem',
+                    },
+                    fontFamily: 'Copperplate',
+                    mb: 3
+                }}>It is suggested to work out one or more muscle groups below</Typography>
+            <ul style={{ textAlign: 'left', listStyle: 'square' }}>
                 {todaysWorkout.map(bodyPart => <li>{bodyPart}</li>)}
             </ul>
         </div>

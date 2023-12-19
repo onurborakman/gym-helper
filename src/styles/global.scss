@@ -2,16 +2,16 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Copperplate;
   line-height: 1.6;
-  font-size: 18px;
-  background-color: darkblue;
+  font-size: 24px;
+  background-color: black;
   color: white;
 }
 
 * {
   box-sizing: border-box;
+  font-family: Copperplate;
 }
 
 a {
@@ -26,4 +26,35 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+
+.rbh polygon:hover { fill: #E32636 !important; }
+.rbh polygon {
+  transition: 0.3s;
+}
+
+button {
+  border: 2px solid white;
+  background-color: black;
+  color: white;
+  padding: 14px 15px;
+  border-radius: 20% 80% 82% 18% / 30% 45% 55% 70%;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    color: black;
+    background-color: white;
+  }
+}
+
+input {
+  border-radius: 25px;
+  padding: 0;
+  margin: 0;
+  padding: 5px 15px;
+}
+
+.MuiSwitch-track {
+  background-color: white;
 }

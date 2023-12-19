@@ -17,6 +17,7 @@ export function ContextDataProvider({ children }) {
     const [schedule, setSchedule] = useState()
     const [log, setLog] = useState()
     const [step, setStep] = useState(0)
+    const [isStrength, setIsStrength] = useState(false)
     
     const values = {
         soreness,
@@ -27,7 +28,9 @@ export function ContextDataProvider({ children }) {
         setLog,
         Workouts,
         step,
-        setStep
+        setStep,
+        isStrength,
+        setIsStrength
     }
   
     return (
