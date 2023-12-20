@@ -6,12 +6,28 @@
         margin-bottom: 20px;
         margin-top: 20px;
         text-align: left;
+
+        @media (max-width: 540px) {
+            display: flex;
+            flex-direction: column;
+        }
+
         .exerciseLogWrapper {
             margin-bottom: 20px;
+            @media (max-width: 540px) {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
             .exerciseLog {
                 display: flex;
                 font-family: 'Copperplate';
                 margin-bottom: 5px;
+                @media (max-width: 540px) {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
             }
         }
     }

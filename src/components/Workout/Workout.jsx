@@ -88,7 +88,7 @@ const Workout = () => {
                     mb: 3
                 }}>It is suggested to work out one or more muscle groups below</Typography>
             <ul style={{ textAlign: 'left', listStyle: 'square' }}>
-                {todaysWorkout.map(bodyPart => <li>{bodyPart}</li>)}
+                {todaysWorkout.map((bodyPart, index) => <li key={index}>{bodyPart}</li>)}
             </ul>
         </div>
     )

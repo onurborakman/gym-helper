@@ -15,12 +15,12 @@ const NewWorkout = () => {
     const { log, isStrength } = useContextData()
     
     const currentExercises = log
-    const newExercises = currentExercises?.map(({name, sets}) => {
+    const newExercises = currentExercises?.map(({name, sets}, index) => {
         const weight = +sets[0].weight
         const rep = +sets[0].reps
         const oneRepMax = calculateOneRepMax(weight, rep)
         const newWeight = getReps(oneRepMax, isStrength)
-        return <li>{sets.length} set(s) of {name.charAt(0).toUpperCase() + name.slice(1)} {isStrength ? '4-6' : '8-12'} repetitions x {newWeight}</li>
+        return <li key={index}>{sets.length} set(s) of {name.charAt(0).toUpperCase() + name.slice(1)} {isStrength ? '4-6' : '8-12'} repetitions x {newWeight}</li>
     })
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

@@ -11,7 +11,6 @@ const SorenessChart = () => {
     const handleClick = useCallback((prop) => {
         const {muscle, data: { frequency }} = prop
         const muscles = soreness || []
-        console.log('testtest', muscle)
         if (frequency === 0) {
             setData({ name: 'Training', muscles: [...muscles, muscle] })
             setSoreness([...muscles, muscle])

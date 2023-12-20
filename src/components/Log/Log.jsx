@@ -14,7 +14,6 @@ const Log = () => {
     const [currentLog, setCurrentLog] = useState([])
     
     useEffect(() => {
-        console.log('testtest', currentLog)
         setLog(currentLog)
     }, [currentLog])
 
@@ -53,14 +52,14 @@ const Log = () => {
                 }}>{'←'} Turn this on to focus on strength</Typography>
             <div className={styles.list}>
                 {currentLog.map((log, logIndex) => (
-                    <div className={styles.exerciseLogWrapper}>
+                    <div key={logIndex} className={styles.exerciseLogWrapper}>
                         <input placeholder='Exercise Name' onChange={(e) => {
                             log.name = e.target.value
                             const newCurrentLog = insert(currentLog, logIndex, log)
                             setCurrentLog(newCurrentLog)
                         }}/>
                         {log.sets.map((_, setIndex) => (
-                            <div className={styles.exerciseLog}>
+                            <div key={setIndex} className={styles.exerciseLog}>
                                 <input name='reps' placeholder='Repetitions' onChange={(e) => handleChange(e, log, logIndex, setIndex)} type='number'/>
                                 X<input name='weight' placeholder='Weight' type='number' onChange={(e) => handleChange(e, log, logIndex, setIndex)}/>KG/LBS
                                 </div>
