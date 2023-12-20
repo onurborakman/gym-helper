@@ -9,13 +9,13 @@ const SorenessChart = () => {
     const { soreness, setSoreness, setStep } = useContextData()
     const [data, setData] = useState([{ name: 'Training', muscles: soreness ?? [] }])
     const handleClick = useCallback((prop) => {
-        const {muscle, data: { frequency }} = prop
+        const {muscle: newMuscle, data: { frequency }} = prop
         const muscles = soreness || []
         if (frequency === 0) {
-            setData({ name: 'Training', muscles: [...muscles, muscle] })
-            setSoreness([...muscles, muscle])
+            setData({ name: 'Training', muscles: [...muscles, newMuscle] })
+            setSoreness([...muscles, newMuscle])
         } else {
-            const removed = muscles.filter(muscle => muscle !== muscle)
+            const removed = muscles.filter(muscle => muscle !== newMuscle)
             setData({ name: 'Training', muscles: [...removed] })
             setSoreness([...removed])
         }
