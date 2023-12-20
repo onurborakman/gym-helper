@@ -10,10 +10,13 @@ const BodyParts = {
     ],
     Shoulders: [
         'back-deltoids',
-        'front-deltoids'
+        'front-deltoids',
+        'neck'
     ],
     Chest: [
-        'chest'
+        'chest',
+        'front-deltoids',
+        'triceps'
     ],
     Arms: [
         'biceps',
@@ -34,7 +37,9 @@ const BodyParts = {
     Back: [
         'trapezius',
         'upper-back',
-        'lower-back'
+        'lower-back',
+        'biceps',
+        'back-deltoids'
     ]
 }
 
