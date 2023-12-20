@@ -3,6 +3,7 @@ import React from 'react'
 import { useContextData } from '@/app/context'
 import { Typography } from '@mui/material'
 
+// Workouts with related muscle groups
 const BodyParts = {
     Core: [
         'obliques',
@@ -43,6 +44,7 @@ const BodyParts = {
     ]
 }
 
+// Get the workout list that can be done outside of soreness
 const getNotSoreWorkoutsList = soreness => {
     const soreWorkouts = []
     const bodyParts = Object.keys(BodyParts)
@@ -69,8 +71,8 @@ const Workout = () => {
             Take a rest day, champion.
         </>)
     }
-    const allWorkouts = [...whatToWorkout, ...notSoreWorkouts]
-    const todaysWorkout = allWorkouts.filter((item, index) => allWorkouts.indexOf(item) !== index)
+    const allWorkouts = [...whatToWorkout, ...notSoreWorkouts] // Workouts that can be done
+    const todaysWorkout = allWorkouts.filter((item, index) => allWorkouts.indexOf(item) !== index) // Filter out same workouts
     return (
         <div style={{ textAlign: 'center' }}>
             <Typography sx={{

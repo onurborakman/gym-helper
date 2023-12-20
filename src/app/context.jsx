@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 
 const ContextData = createContext(null);
 
+// Universally accepted workouts
 const Workouts = [
     "Chest",
     "Back",

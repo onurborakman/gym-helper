@@ -3,7 +3,10 @@ import { useContextData } from '@/app/context'
 import { Typography } from '@mui/material'
 import React from 'react'
 
+// Function to calculate 1 Rep Max
 const calculateOneRepMax = (weight, rep) => weight * (36 / (37 - rep))
+
+// Function to calculate how many reps
 const getReps = (oneRepMax, isStrength) => {
     if (isStrength) {
         return Math.round(oneRepMax * 0.9)
@@ -12,9 +15,9 @@ const getReps = (oneRepMax, isStrength) => {
 }
 
 const NewWorkout = () => {
-    const { log, isStrength } = useContextData()
+    const { log: currentExercises, isStrength } = useContextData()
     
-    const currentExercises = log
+    // Get adjusted exercises
     const newExercises = currentExercises?.map(({name, sets}, index) => {
         if(!name || !sets[0].weight || !sets[0].reps || sets[0].reps > 36){
             return null

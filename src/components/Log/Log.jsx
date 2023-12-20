@@ -4,6 +4,7 @@ import styles from './Log.module.scss'
 import { Switch, Typography } from '@mui/material'
 import { useContextData } from '@/app/context'
 
+// Function to insert into array
 const insert = (array, index, newItem) => {
     const newArray = array.filter(item => item !== newItem)
     return [...newArray.slice(0, index), newItem, ...newArray.slice(index)]
@@ -17,6 +18,7 @@ const Log = () => {
         setLog(currentLog)
     }, [currentLog, setLog])
 
+    // Function to add new data
     const handleChange = (e, log, logIndex, setIndex) => {
         const key = e.target.name
         const value = e.target.value

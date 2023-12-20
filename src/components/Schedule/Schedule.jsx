@@ -8,6 +8,7 @@ const Schedule = () => {
   const { setSchedule, Workouts, schedule, setStep } = useContextData()
   const [checked, setChecked] = React.useState(schedule || [])
 
+  // Function to select/de-select
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value)
     const newChecked = [...checked]

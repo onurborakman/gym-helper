@@ -11,10 +11,10 @@ const SorenessChart = () => {
     const handleClick = useCallback((prop) => {
         const {muscle: newMuscle, data: { frequency }} = prop
         const muscles = soreness || []
-        if (frequency === 0) {
+        if (frequency === 0) { // Click to select
             setData({ name: 'Training', muscles: [...muscles, newMuscle] })
             setSoreness([...muscles, newMuscle])
-        } else {
+        } else { // Click to de-select
             const removed = muscles.filter(muscle => muscle !== newMuscle)
             setData({ name: 'Training', muscles: [...removed] })
             setSoreness([...removed])
