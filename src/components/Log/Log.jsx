@@ -15,7 +15,7 @@ const Log = () => {
     
     useEffect(() => {
         setLog(currentLog)
-    }, [currentLog])
+    }, [currentLog, setLog])
 
     const handleChange = (e, log, logIndex, setIndex) => {
         const key = e.target.name
@@ -60,7 +60,7 @@ const Log = () => {
                         }}/>
                         {log.sets.map((_, setIndex) => (
                             <div key={setIndex} className={styles.exerciseLog}>
-                                <input name='reps' placeholder='Repetitions' onChange={(e) => handleChange(e, log, logIndex, setIndex)} type='number'/>
+                                <input name='reps' placeholder='Repetitions MAX: 36' onChange={(e) => handleChange(e, log, logIndex, setIndex)} type='number'/>
                                 X<input name='weight' placeholder='Weight' type='number' onChange={(e) => handleChange(e, log, logIndex, setIndex)}/>KG/LBS
                                 </div>
                         ))}

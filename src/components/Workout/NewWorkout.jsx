@@ -3,12 +3,12 @@ import { useContextData } from '@/app/context'
 import { Typography } from '@mui/material'
 import React from 'react'
 
-const calculateOneRepMax = (weight, rep) => Math.ceil(weight * (36 / (37 - rep)))
+const calculateOneRepMax = (weight, rep) => weight * (36 / (37 - rep))
 const getReps = (oneRepMax, isStrength) => {
     if (isStrength) {
-        return oneRepMax * 0.9
+        return Math.round(oneRepMax * 0.9)
     }
-    return oneRepMax * 0.8
+    return Math.round(oneRepMax * 0.8)
 }
 
 const NewWorkout = () => {
@@ -16,12 +16,15 @@ const NewWorkout = () => {
     
     const currentExercises = log
     const newExercises = currentExercises?.map(({name, sets}, index) => {
+        if(!name || !sets[0].weight || !sets[0].reps || sets[0].reps > 36){
+            return null
+        }
         const weight = +sets[0].weight
         const rep = +sets[0].reps
         const oneRepMax = calculateOneRepMax(weight, rep)
         const newWeight = getReps(oneRepMax, isStrength)
-        return <li key={index}>{sets.length} set(s) of {name.charAt(0).toUpperCase() + name.slice(1)} {isStrength ? '4-6' : '8-12'} repetitions x {newWeight}</li>
-    })
+        return <li key={index}>{sets.length} set(s) of {name.charAt(0).toUpperCase() + name.slice(1)} {isStrength ? '4-6' : '8-12'} repetitions x {newWeight} KG/LBS</li>
+    }).filter(exercise => exercise !== null)
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Typography sx={{

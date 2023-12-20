@@ -19,7 +19,7 @@ const SorenessChart = () => {
             setData({ name: 'Training', muscles: [...removed] })
             setSoreness([...removed])
         }
-    }, [data])
+    }, [data, setSoreness, soreness])
     return (
         <div className={styles['soreness-chart']}>
             <Typography sx={{
