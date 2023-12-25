@@ -12,6 +12,7 @@ export default function RootLayout({ children }) {
  return (
     <html lang="en">
       <head>
+        <link type="image/png" sizes="32x32" rel="icon" href="/icon.png"/>
         <meta property="title" content="Gym Helpert: The free tool to help with your gym journey" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="gym helpert: the free tool to help with your gym journey" />
