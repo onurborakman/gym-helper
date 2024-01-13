@@ -1,4 +1,3 @@
-import Head from "next/head"
 import { ContextDataProvider } from "./context"
 export const metadata = {
   title: 'Gym Helpert: The free tool to help with your gym journey',
@@ -22,6 +21,7 @@ export default function RootLayout({ children }) {
         <meta property="twitter:title" content="Gym Helpert: The free tool to help with your gym journey" />
         <meta property="twitter:description" content="Gym Helpert is an online tool that provides assistance to those that want to know which muscles are the best work out and how much to lift." />
         <meta name="google-site-verification" content="LREylUAj9Tqq7ofSdrtUm-pGdagAShXJcqXITbFc1EY" />
+        <meta name="google-adsense-account" content="ca-pub-2781994736547211"/>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2781994736547211"
      crossorigin="anonymous"></script>
       </head>
@@ -29,6 +29,17 @@ export default function RootLayout({ children }) {
         <ContextDataProvider>
           {children}
         </ContextDataProvider>
+        <footer style={{
+          width: '100%',
+          borderTop: '2px solid white',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <a href='/privacy-policy' style={{
+            color: 'white'
+          }}>Privacy Policy</a>
+        </footer>
       </body>
     </html>
   )
